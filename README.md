@@ -1,4 +1,4 @@
-# A reconciler that mangers other reconcilers
+# A prototype controller that mangers the lifecycle of dynamic controllers
 
 A controller that spins up other managers that watch for types dynamically.
 These dynamic types are specified in the `Monitor` resource via their GVK.
