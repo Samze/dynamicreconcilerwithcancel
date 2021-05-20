@@ -2,6 +2,8 @@
 
 A controller that spins up other managers that watch for types dynamically.
 These dynamic types are specified in the `Monitor` resource via their GVK.
+Importantly these managers and related informers are cleaned up to avoid memory
+leaks.
 
 ## Test
 
