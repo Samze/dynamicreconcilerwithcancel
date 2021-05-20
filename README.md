@@ -29,4 +29,4 @@ kubectl delete -f config/samples/monitor.yaml
 
 ## Note
 
-More information on why we need to manager at the controller-runtime Manager level can be found in this excellent write up by Glyn Normington https://raw.githubusercontent.com/vmware-labs/reconciler-runtime/fdf2f9ace44e739046539db47d3eca01dba3f71a/informers/doc.go
+More information on why we need to manager at the controller-runtime Manager level can be found in this excellent write up by Glyn Normington https://raw.githubusercontent.com/vmware-labs/reconciler-runtime/fdf2f9ace44e739046539db47d3eca01dba3f71a/informers/doc.go and related [issue](https://github.com/vmware-labs/reconciler-runtime/pull/67).
