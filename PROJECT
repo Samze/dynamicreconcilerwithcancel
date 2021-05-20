@@ -1,8 +1,8 @@
 domain: samze.com
 layout:
 - go.kubebuilder.io/v3
-projectName: ducktest
-repo: github.com/samze/ducktypetest
+projectName: dynamicreconcilerwithcancel
+repo: github.com/samze/dynamicreconcilerwithcancel
 resources:
 - api:
     crdVersion: v1
@@ -10,7 +10,7 @@ resources:
   controller: true
   domain: samze.com
   group: baz
-  kind: Bar
-  path: github.com/samze/ducktypetest/api/v1beta1
+  kind: Monitor
+  path: github.com/samze/dynamicreconcilerwithcancel/api/v1beta1
   version: v1beta1
 version: "3"

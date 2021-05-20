@@ -28,51 +28,51 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
 
-	bazv1beta1 "github.com/samze/ducktypetest/api/v1beta1"
-	v1beta1 "github.com/samze/ducktypetest/api/v1beta1"
+	bazv1beta1 "github.com/samze/dynamicreconcilerwithcancel/api/v1beta1"
+	v1beta1 "github.com/samze/dynamicreconcilerwithcancel/api/v1beta1"
 )
 
-// BarReconciler reconciles a Bar object
-type BarReconciler struct {
+// MonitorReconciler reconciles a Monitor object
+type MonitorReconciler struct {
 	client.Client
 	Log    logr.Logger
 	Scheme *runtime.Scheme
 	Mgrs   *DynamicManagerMap
 }
 
-const barFinalizer = "samze.ducktest"
+const monitorFinalizer = "samze.monitor"
 
-//+kubebuilder:rbac:groups=baz.samze.com,resources=bars,verbs=get;list;watch;create;update;patch;delete
-//+kubebuilder:rbac:groups=baz.samze.com,resources=bars/status,verbs=get;update;patch
-//+kubebuilder:rbac:groups=baz.samze.com,resources=bars/finalizers,verbs=update
+//+kubebuilder:rbac:groups=baz.samze.com,resources=monitors,verbs=get;list;watch;create;update;patch;delete
+//+kubebuilder:rbac:groups=baz.samze.com,resources=monitors/status,verbs=get;update;patch
+//+kubebuilder:rbac:groups=baz.samze.com,resources=monitors/finalizers,verbs=update
 
-func (r *BarReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-	l := r.Log.WithValues("bar", req.NamespacedName)
+func (r *MonitorReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
+	l := r.Log.WithValues("monitor", req.NamespacedName)
 	l.Info("reconciling")
 
-	bar := &v1beta1.Bar{}
+	monitor := &v1beta1.Monitor{}
 
-	if err := r.Get(ctx, req.NamespacedName, bar); err != nil {
+	if err := r.Get(ctx, req.NamespacedName, monitor); err != nil {
 		return ctrl.Result{}, client.IgnoreNotFound(err)
 	}
 
-	gvk := schema.GroupVersionKind{Group: bar.Spec.Group, Version: bar.Spec.Version, Kind: bar.Spec.Kind}
+	gvk := schema.GroupVersionKind{Group: monitor.Spec.Group, Version: monitor.Spec.Version, Kind: monitor.Spec.Kind}
 
-	if bar.ObjectMeta.DeletionTimestamp.IsZero() {
-		if !containsString(bar.GetFinalizers(), barFinalizer) {
-			controllerutil.AddFinalizer(bar, barFinalizer)
-			if err := r.Update(ctx, bar); err != nil {
+	if monitor.ObjectMeta.DeletionTimestamp.IsZero() {
+		if !containsString(monitor.GetFinalizers(), monitorFinalizer) {
+			controllerutil.AddFinalizer(monitor, monitorFinalizer)
+			if err := r.Update(ctx, monitor); err != nil {
 				return ctrl.Result{}, err
 			}
 		}
 	} else {
-		if containsString(bar.GetFinalizers(), barFinalizer) {
+		if containsString(monitor.GetFinalizers(), monitorFinalizer) {
 			if dynamicMgr := r.Mgrs.Get(gvk.Group); dynamicMgr != nil {
 				l.Info("Cancelling ctx")
 				dynamicMgr.Cancel()
 
-				controllerutil.RemoveFinalizer(bar, barFinalizer)
-				if err := r.Update(ctx, bar); err != nil {
+				controllerutil.RemoveFinalizer(monitor, monitorFinalizer)
+				if err := r.Update(ctx, monitor); err != nil {
 					return ctrl.Result{}, err
 				}
 
@@ -131,9 +131,9 @@ func (r *BarReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.R
 }
 
 // SetupWithManager sets up the controller with the Manager.
-func (r *BarReconciler) SetupWithManager(mgr ctrl.Manager) error {
+func (r *MonitorReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
-		For(&bazv1beta1.Bar{}).
+		For(&bazv1beta1.Monitor{}).
 		Complete(r)
 }
 

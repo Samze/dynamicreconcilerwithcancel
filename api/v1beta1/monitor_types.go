@@ -23,8 +23,8 @@ import (
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
-// BarSpec defines the desired state of Bar
-type BarSpec struct {
+// MonitorSpec defines the desired state of Bar
+type MonitorSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
@@ -34,8 +34,8 @@ type BarSpec struct {
 	Kind    string `json:"kind,omitempty"`
 }
 
-// BarStatus defines the observed state of Bar
-type BarStatus struct {
+// MonitorStatus defines the observed state of Bar
+type MonitorStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 }
@@ -43,24 +43,24 @@ type BarStatus struct {
 //+kubebuilder:object:root=true
 //+kubebuilder:subresource:status
 
-// Bar is the Schema for the bars API
-type Bar struct {
+// Monitor is the Schema for the bars API
+type Monitor struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   BarSpec   `json:"spec,omitempty"`
-	Status BarStatus `json:"status,omitempty"`
+	Spec   MonitorSpec   `json:"spec,omitempty"`
+	Status MonitorStatus `json:"status,omitempty"`
 }
 
 //+kubebuilder:object:root=true
 
-// BarList contains a list of Bar
-type BarList struct {
+// MonitorList contains a list of Bar
+type MonitorList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []Bar `json:"items"`
+	Items           []Monitor `json:"items"`
 }
 
 func init() {
-	SchemeBuilder.Register(&Bar{}, &BarList{})
+	SchemeBuilder.Register(&Monitor{}, &MonitorList{})
 }

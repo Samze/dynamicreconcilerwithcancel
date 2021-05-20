@@ -33,8 +33,8 @@ import (
 
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	bazv1beta1 "github.com/samze/ducktypetest/api/v1beta1"
-	"github.com/samze/ducktypetest/controllers"
+	bazv1beta1 "github.com/samze/dynamicreconcilerwithcancel/api/v1beta1"
+	"github.com/samze/dynamicreconcilerwithcancel/controllers"
 	//+kubebuilder:scaffold:imports
 )
 
@@ -83,7 +83,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	if err = (&controllers.BarReconciler{
+	if err = (&controllers.MonitorReconciler{
 		Client: mgr.GetClient(),
 		Log:    ctrl.Log.WithName("controllers").WithName("Bar"),
 		Scheme: mgr.GetScheme(),

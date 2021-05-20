@@ -1,4 +1,4 @@
-module github.com/samze/ducktypetest
+module github.com/samze/dynamicreconcilerwithcancel
 
 go 1.16
 

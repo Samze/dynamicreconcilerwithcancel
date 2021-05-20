@@ -9,7 +9,7 @@ rules:
 - apiGroups:
   - baz.samze.com
   resources:
-  - bars
+  - monitors
   verbs:
   - create
   - delete
@@ -21,13 +21,13 @@ rules:
 - apiGroups:
   - baz.samze.com
   resources:
-  - bars/finalizers
+  - monitors/finalizers
   verbs:
   - update
 - apiGroups:
   - baz.samze.com
   resources:
-  - bars/status
+  - monitors/status
   verbs:
   - get
   - patch
