@@ -1,0 +1,16 @@
+domain: samze.com
+layout:
+- go.kubebuilder.io/v3
+projectName: ducktest
+repo: github.com/samze/ducktypetest
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: samze.com
+  group: baz
+  kind: Bar
+  path: github.com/samze/ducktypetest/api/v1beta1
+  version: v1beta1
+version: "3"

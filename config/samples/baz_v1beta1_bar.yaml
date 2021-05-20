@@ -1,0 +1,8 @@
+apiVersion: baz.samze.com/v1beta1
+kind: Bar
+metadata:
+  name: bar-sample
+spec:
+  group: rabbitmq.com
+  version: v1beta1
+  kind: RabbitmqCluster
